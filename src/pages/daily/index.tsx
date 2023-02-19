@@ -44,13 +44,14 @@ const Page = () => {
     const PathCd = () => {
         setPathCoordinates([...pathCoordinates, {lat:position.lat,lng:position.lng}])
     }
-
+console.log(REACT_APP_GOOGLE_MAP_API_KEY)
 //再描画され線が引かれる
     return (
         <>
         <div>
             <label style={labelStyle}>今日の位置移動情報</label>
-            <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAP_API_KEY || ''}>
+            process?.env?.REACT_APP_GOOGLE_MAP_API_KEY
+            <LoadScript googleMapsApiKey={process?.env?.REACT_APP_GOOGLE_MAP_API_KEY || ''}>
                     <GoogleMap
                         mapContainerStyle={containerStyle}
                         center={{lat: position.lat, lng: position.lng}}

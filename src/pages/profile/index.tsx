@@ -1,8 +1,9 @@
+import UserCard from '@src/organisms/user/UserCard'
 import React from 'react'
 
 const Page = () => {
   return (
-    <div>Profile</div>
+      <UserCard />
   )
 }
 export default Page
