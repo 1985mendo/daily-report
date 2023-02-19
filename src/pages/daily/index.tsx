@@ -12,8 +12,7 @@ const Page = () => {
     const [position, setPosition] = useState<Position>({lat:null,lng:null})
     const [pathCoordinates, setPathCoordinates] = useState<Position[]>([])
     
-    
-    function getLocation() {
+    const getLocation = () => {
         if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((position) => {
             setPosition({
@@ -46,20 +45,20 @@ const Page = () => {
         setPathCoordinates([...pathCoordinates, {lat:position.lat,lng:position.lng}])
     }
 
-
-
 //再描画され線が引かれる
     return (
         <>
         <div>
             <label style={labelStyle}>今日の位置移動情報</label>
-                <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAP_API_KEY || ''}>
+            <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAP_API_KEY || ''}>
                     <GoogleMap
                         mapContainerStyle={containerStyle}
                         center={{lat: position.lat, lng: position.lng}}
                         zoom={15}
                         options={{ gestureHandling: 'greedy'}}
-                        >   
+                    >
+                
+                           
                         <Polyline
                             path={pathCoordinates}
                             key={1}
@@ -72,7 +71,9 @@ const Page = () => {
                             }}
                         />
                         <Marker position={{lat: position.lat, lng: position.lng}} />
+            
                     </GoogleMap>
+                  
                 </LoadScript>
         </div>
         <button style={buttonStyle} onClick={() => PathCd()}>
