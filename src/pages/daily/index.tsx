@@ -9,7 +9,7 @@ type Position = {
 
 const containerStyle = {
   width: "100%",
-  height: "55vh",
+  height: "65vh",
 };
 
 const buttonStyle = {
