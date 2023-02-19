@@ -44,7 +44,6 @@ const Page = () => {
     const PathCd = () => {
         setPathCoordinates([...pathCoordinates, {lat:position.lat,lng:position.lng}])
     }
-console.log(REACT_APP_GOOGLE_MAP_API_KEY)
 //再描画され線が引かれる
     return (
         <>
