@@ -1,17 +1,25 @@
-import { Button, Container, Heading, chakra, useToast } from '@chakra-ui/react'
 import { useAuthContext } from '@src/feature/auth/provider/AuthProvider'
+import { Button, Container, Heading, chakra, useToast, Flex, Spacer, Menu, MenuButton, Avatar, MenuList, MenuItem } from '@chakra-ui/react'
 import { FirebaseError } from '@firebase/util'
 import { getAuth, signOut } from 'firebase/auth'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 
-export const Header = () => {
+const Header = () => {
   const { user } = useAuthContext()
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const toast = useToast()
   const { push } = useRouter()
 
+  const handleProf = () => {
+    push('/profile')
+  }
+  const handleDaily = () => {
+    push('/daily')
+  }
+  
   const handleSignOut = async () => {
+    console.log(isLoading)
     setIsLoading(true)
     try {
       const auth = getAuth()
@@ -34,20 +42,31 @@ export const Header = () => {
   return (
     <chakra.header py={4} bgColor={'blue.600'}>
       <Container maxW={'container.lg'}>
-        <Heading color={'white'}>
+      <Flex>
+          <Heading color={'white'}>Daily-Report-App</Heading>
+          <Spacer aria-hidden />
           {user ? (
-            <Button
-              colorScheme={'teal'}
-              onClick={handleSignOut}
-              isLoading={isLoading}
-            >
-              サインアウト
-            </Button>
-          ) : (
-            'ログアウト中'
-          )}
-        </Heading>
+            <Menu>
+              <MenuButton>
+                <Avatar flexShrink={0} width={10} height={10} />
+              </MenuButton>
+              <MenuList py={0}>
+                <MenuItem onClick={handleProf}>プロフィール</MenuItem>
+                <hr />
+                <MenuItem onClick={handleDaily}>日報</MenuItem>
+                <hr />
+                <MenuItem onClick={handleSignOut}>サインアウト</MenuItem>
+              </MenuList>
+            </Menu>
+           ) : (
+              <Button as={'a'} colorScheme={'teal'}>
+                サインイン
+              </Button>
+       )}
+
+        </Flex>
       </Container>
     </chakra.header>
   )
 }
+export default Header

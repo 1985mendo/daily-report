@@ -15,12 +15,15 @@ import {
 import { FormEvent, useState } from 'react'
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 import { FirebaseError } from '@firebase/util'
+import { useRouter } from 'next/router'
+
 
 export const Page = () => {
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const toast = useToast()
+  const router = useRouter()
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     setIsLoading(true)
@@ -35,7 +38,10 @@ export const Page = () => {
         status: 'success',
         position: 'top',
       })
-      //TODO: ログイン後のページに遷移の処理を書く
+      
+      //ログイン後のページに遷移
+      router.push('/daily')
+
     } catch (e) {
       toast({
         title: 'エラーが発生しました。',
@@ -62,6 +68,7 @@ export const Page = () => {
               <Input
                 type={'email'}
                 name={'email'}
+                placeholder={`メールアドレス`}
                 value={email}
                 onChange={(e) => {
                   setEmail(e.target.value)
@@ -73,6 +80,7 @@ export const Page = () => {
               <Input
                 type={'password'}
                 name={'password'}
+                placeholder={`6文字以上のパスワードを設定してください`}
                 value={password}
                 onChange={(e) => {
                   setPassword(e.target.value)

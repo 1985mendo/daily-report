@@ -60,7 +60,7 @@ export const Page = () => {
 
   return (
     <Container py={14}>
-      <Heading>サインアップ</Heading>
+      <Heading>新規登録</Heading>
       <chakra.form onSubmit={handleSubmit}>
         <Spacer height={8} aria-hidden />
         <Grid gap={4}>
@@ -70,6 +70,7 @@ export const Page = () => {
               <Input
                 type={'email'}
                 name={'email'}
+                placeholder={`メールアドレス`}
                 value={email}
                 onChange={(e) => {
                   setEmail(e.target.value)
@@ -81,6 +82,7 @@ export const Page = () => {
               <Input
                 type={'password'}
                 name={'password'}
+                placeholder={`6文字以上のパスワードを設定してください`}
                 value={password}
                 onChange={(e) => {
                   setPassword(e.target.value)
