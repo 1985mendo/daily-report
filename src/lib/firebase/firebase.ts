@@ -17,6 +17,5 @@ const firebaseConfig = {
   appId: FIREBASE_APP_ID,
 }
 
-const app = initializeApp(firebaseConfig)
 export const initializeFirebaseApp = () =>
   !getApps().length ? initializeApp(firebaseConfig) : getApp()
