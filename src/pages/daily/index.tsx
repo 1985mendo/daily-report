@@ -23,7 +23,7 @@ const buttonStyle = {
 };
 
 const Page = () => {
-  const [position, setPosition] = useState<Position>({ lat: null, lng: null });
+  const [position] = useState<Position>({ lat: null, lng: null });
   const [pathCoordinates, setPathCoordinates] = useState<Position[]>([]);
   const [isAlertShown, setIsAlertShown] = useState(false);
 
