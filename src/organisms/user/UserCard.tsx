@@ -1,19 +1,41 @@
-import { Avatar } from "@chakra-ui/react"
-// import styled from "styled-components"
-export const UserCard = () => {
+import { Avatar, Box, Stack, Text } from "@chakra-ui/react"
+
+export const UserCard = (props) => {
+  const { user } = props
   return (
-    <div>
-      <Avatar flexShrink={0} width={10} height={10} />
-      <p>名前</p>
-      <dl>
-        <dt>社員番号</dt>
-        <dd>200012</dd>
-        <dt>メールアドレス</dt>
-        <dd>123456@gmail.com</dd>
-        <dt>エリア</dt>
-        <dd>北部九州</dd>
-      </dl>
-    </div>
+    <>
+    <Avatar 
+      height={120}
+      width={120}
+      marginLeft={150}
+      marginTop={30}
+    />
+    <Box
+      display="flex"
+      alignItems="start"
+      justifyContent="center"
+      height="50vh"
+    >
+      <Stack spacing={4} marginTop={30}>
+      <Stack direction="row" spacing={78}>
+        <Text fontWeight="bold">名 前</Text>
+        <Text>山田太郎</Text>
+      </Stack>
+      <Stack direction="row" spacing={50}>
+        <Text fontWeight="bold">社員番号</Text>
+        <Text>123456</Text>
+      </Stack>
+      <Stack direction="row" spacing={1}>
+        <Text fontWeight="bold">メールアドレス</Text>
+        <Text>123456@gmail.com</Text>
+      </Stack>
+      <Stack direction="row" spacing={9}>
+        <Text fontWeight="bold">担当エリア</Text>
+        <Text>北部九州</Text>
+      </Stack>
+    </Stack>
+    </Box>
+    </>
   )
 }
 export default UserCard
