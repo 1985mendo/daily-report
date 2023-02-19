@@ -30,32 +30,36 @@ const Page = () => {
   useEffect(() => {
     let timeoutId: NodeJS.Timeout;
     if (pathCoordinates.length > 1) {
-      const { lat: lat1, lng: lng1 } = pathCoordinates[pathCoordinates.length - 1];
-      const { lat: lat2, lng: lng2 } = pathCoordinates[pathCoordinates.length - 2];
-
-      if (lat1 === lat2 && lng1 === lng2) {
-        timeoutId = setTimeout(() => {
-          setIsAlertShown(true);
-        }, 120000); // 2分間同じ場所にいたら警告を表示
+      const latLng1 = pathCoordinates[pathCoordinates.length - 1];
+      const latLng2 = pathCoordinates[pathCoordinates.length - 2];
+      if (latLng1 && latLng2) {
+        const { lat: lat1, lng: lng1 } = latLng1;
+        const { lat: lat2, lng: lng2 } = latLng2;
+        
+        if (lat1 === lat2 && lng1 === lng2) {
+          timeoutId = setTimeout(() => {
+            setIsAlertShown(true);
+          }, 120000); // TODO:2分間同じ場所にいたら警告を表示　分数を変える
+        }
       }
     }
-
+    
     return () => {
       clearTimeout(timeoutId);
     };
   }, [pathCoordinates]);
-
+  
   const handleClick = () => {
     if (position.lat != null && position.lng != null) {
       setPathCoordinates((prev) => [...prev, { lat: position.lat, lng: position.lng }]);
       setIsAlertShown(false);
     }
   }
-
+  const googleMapApiKey: string | undefined = process?.env?.['NEXT_PUBLIC_GOOGLE_MAP_API_KEY'];
   return (
     <Box>
       <Heading fontSize={18}>本日の移動位置情報</Heading>
-      <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY || ""}>
+      <LoadScript googleMapsApiKey={googleMapApiKey || ''}>
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={{ lat: position.lat || 0, lng: position.lng || 0 }}
@@ -63,7 +67,7 @@ const Page = () => {
           options={{ gestureHandling: "greedy" }}
         >
           <Polyline
-            path={pathCoordinates}
+          path={pathCoordinates.map((coord) => ({ lat: coord.lat as number, lng: coord.lng as number }))}
             key={1}
             editable={false}
             options={{
