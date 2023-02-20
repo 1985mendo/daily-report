@@ -55,7 +55,9 @@ const Page = () => {
       setIsAlertShown(false);
     }
   }
-  const googleMapApiKey: string | undefined = process?.env?.['NEXT_PUBLIC_GOOGLE_MAP_API_KEY'];
+  const googleMapApiKey: string | undefined = process?.env?.['NEXT_PUBLIC_GOOGLE_MAP_API_KEY']
+  
+  if(!process?.env?.['NEXT_PUBLIC_GOOGLE_MAP_API_KEY'] ) return
   return (
     <Box>
       <Heading fontSize={18}>本日の移動位置情報</Heading>
@@ -91,7 +93,7 @@ const Page = () => {
         </Alert>
       )}
     </Box>
-  );
-};
+  )
+}
 
-export default Page;
+export default Page
