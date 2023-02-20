@@ -1,4 +1,4 @@
-import { chakra, Container, Flex, Link } from '@chakra-ui/react'
+import {  chakra, Container, Flex, Link } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 
 const Footer = () => {
