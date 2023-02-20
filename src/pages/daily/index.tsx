@@ -25,8 +25,8 @@ const buttonStyle = {
 const Page = () => {
   const [position, setPosition] = useState<Position>({ lat: null, lng: null })
   const [pathCoordinates, setPathCoordinates] = useState<Position[]>([])
-  const [setIsAlertShown] = useState(false)
-
+  const [isAlertShown, setIsAlertShown] = useState<Boolean>(false)
+    console.log(isAlertShown)
   useEffect(() => {
     let timeoutId: NodeJS.Timeout
     if (pathCoordinates.length > 1) {
@@ -65,7 +65,7 @@ const Page = () => {
       alert("お使いのブラウザはGeolocationに対応していません。")
     }
   }
-  const googleMapApiKey: string | undefined = process?.env?.NEXT_PUBLIC_GOOGLE_MAP_API_KEY
+  const googleMapApiKey: string | undefined = process?.env?.['NEXT_PUBLIC_GOOGLE_MAP_API_KEY']
   
   if (!googleMapApiKey) return null
   
