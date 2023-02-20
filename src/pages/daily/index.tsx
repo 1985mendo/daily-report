@@ -25,7 +25,7 @@ const buttonStyle = {
 const Page = () => {
   const [position, setPosition] = useState<Position>({ lat: null, lng: null })
   const [pathCoordinates, setPathCoordinates] = useState<Position[]>([])
-  const [isAlertShown, setIsAlertShown] = useState(false)
+  const [setIsAlertShown] = useState(false)
 
   useEffect(() => {
     let timeoutId: NodeJS.Timeout
