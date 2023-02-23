@@ -12,14 +12,20 @@ const Footer = () => {
 
   
   return (
-    <chakra.footer py={4} bgColor={'blue.600'} color={'white'}>
+    <chakra.footer 
+      py={4} 
+      bgColor={'blue.600'} 
+      color={'white'}
+      position={`fixed`}
+      bottom={0}
+      width={`100%`}  
+    >
       <Container maxW={'container.lg'}>
         <Flex flexDirection={'column'} gap={2} alignItems={'start'}>
             <Link lineHeight={1} onClick={onClickSignin}>サインイン</Link>
             <Link lineHeight={1} onClick={onClickSignup}>新規登録</Link>
         </Flex>
       </Container>
-
     </chakra.footer>
   )
 }
