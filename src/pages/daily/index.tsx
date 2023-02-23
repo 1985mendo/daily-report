@@ -27,7 +27,23 @@ const Page = () => {
   const [pathCoordinates, setPathCoordinates] = useState<Position[]>([])
   const [isAlertShown, setIsAlertShown] = useState<Boolean>(false)
     console.log(isAlertShown)
-  useEffect(() => {
+  
+    useEffect(() => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            setPosition({ lat: position.coords.latitude, lng: position.coords.longitude });
+          },
+          () => {
+            alert("位置情報の取得に失敗しました。")
+          }
+        )
+      } else {
+        alert("お使いのブラウザはGeolocationに対応していません。")
+      }
+    }, [])
+    
+    useEffect(() => {
     let timeoutId: NodeJS.Timeout
     if (pathCoordinates.length > 1) {
       const latLng1 = pathCoordinates[pathCoordinates.length - 1]
@@ -97,12 +113,12 @@ const Page = () => {
       <Button style={buttonStyle} onClick={handleClick}>
         現在位置を記録
       </Button>
-      {/* {isAlertShown && ( */}
+      {isAlertShown && (
         <Alert status="warning" mt={4}>
           <AlertIcon />
           2分間同じ所にいる。サボるな!
         </Alert>
-      {/* )} */}
+      )}
     </Box>
   )
 }
