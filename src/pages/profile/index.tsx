@@ -14,7 +14,10 @@ const Page = () => {
     <Flex
       justifyContent="center"
       alignItems="center"
-      h="80vH"
+      height="100vh"
+      backgroundColor="#e4f9f5"
+      flexDirection="column"
+      flexGrow={1}
     >
       <UserCard user={user}/>
     </Flex>

@@ -5,8 +5,8 @@ export const UserCard = (props: any) => {
 
   return (
     <Box
-      maxW="350px"
-      h="200px"
+      maxW={{ base: "90vw", md: "350px" }}
+      h="50%"
       borderWidth="1px"
       borderRadius="lg"
       overflow="hidden"
@@ -19,12 +19,13 @@ export const UserCard = (props: any) => {
     >
       <Avatar size="xl" name={user.name} src={user.avatarUrl} />
       <Stack
-        spacing={2}
+        spacing={4}
         mt={4}
         px={4}
-        py={2}
+        py={4}
         bg="gray.50"
         w="100%"
+        // h="100%"
         textAlign="center"
       >
         <Text fontWeight="bold" fontSize="lg">{user.name}</Text>
