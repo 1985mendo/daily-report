@@ -1,5 +1,5 @@
 import UserCard from '@src/organisms/user/UserCard'
-import React from 'react'
+import { Flex } from '@chakra-ui/react'
 
 const user = {
   name: "山田太郎",
@@ -11,7 +11,14 @@ const user = {
 
 const Page = () => {
   return (
+    <Flex
+      justifyContent="center"
+      alignItems="center"
+      h="80vH"
+    >
       <UserCard user={user}/>
+    </Flex>
   )
 }
+
 export default Page
