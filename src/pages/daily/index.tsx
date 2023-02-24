@@ -28,7 +28,8 @@ const Page = () => {
   const [isAlertShown, setIsAlertShown] = useState<boolean>(false)
   const [lastRecordedPosition, setLastRecordedPosition] = useState<Position>({ lat: null, lng: null })
   const [timeWithoutMovement, setTimeWithoutMovement] = useState<number>(0);
-
+  console.log(timeWithoutMovement) //使用しない変数
+  
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
