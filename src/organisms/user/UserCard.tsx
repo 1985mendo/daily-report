@@ -2,13 +2,17 @@ import { Stack, Text } from "@chakra-ui/react"
 import { Card } from "@src/component/atom/card/Card"
 import { UsericonWithName } from "@src/component/molecules/user/UsericonWithName"
 
-export const UserCard = (props: any) => {
+type Props = {
+  user: any
+}
+
+export const UserCard = (props: Props) => {
   const { user } = props
 
   return (
     <Card
-      maxW={{ base: "300vw", md: "350px" }}
-      h="50%"
+      maxW={{ base: "100%", md: "350px" }} 
+      h="auto" 
       borderWidth="1px"
       borderRadius="lg"
       overflow="hidden"
@@ -19,15 +23,13 @@ export const UserCard = (props: any) => {
       bg="white"
       boxShadow="md"
     >
-      <UsericonWithName image={`user.image`}/>
+      <UsericonWithName image={user.image} name={user.name} />
       <Stack
         spacing={4}
-        mt={4}
         px={4}
         py={4}
         bg="gray.50"
         w="100%"
-        // h="100%"
         textAlign="center"
       >
         <Text fontWeight="bold" fontSize="lg">{user.name}</Text>

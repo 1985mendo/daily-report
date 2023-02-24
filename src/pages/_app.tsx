@@ -4,6 +4,8 @@ import { initializeFirebaseApp } from '@src/lib/firebase/firebase'
 import { AuthProvider } from '@src/feature/auth/provider/AuthProvider'
 import Header from '@src/component/Header/Header'
 import Footer from '@src/component/Footer/Footer'
+// import "../public/styles/globals.css"
+
 
 initializeFirebaseApp()
 

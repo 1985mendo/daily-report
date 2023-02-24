@@ -1,10 +1,18 @@
-import { Avatar } from "@chakra-ui/react"
+import { Avatar, Flex } from "@chakra-ui/react"
 
-export const UsericonWithName = (props: any) => {
-  const { name, avatarUrl } = props
+type Props = {
+  image: string,
+  name: string
+}
+
+export const UsericonWithName = (props: Props) => {
+  const { image, name } = props
+
   return (
-    <div>
-      <Avatar size="xl" name={name} src={avatarUrl} />
-    </div>
+    <Flex alignItems="center" mb={2}>
+      <Avatar name={name} src={image} size="lg" mr={4} />
+    </Flex>
   )
 }
+
+export default UsericonWithName
