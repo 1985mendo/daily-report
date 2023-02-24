@@ -1,11 +1,13 @@
-import { Avatar, Box, Stack, Text } from "@chakra-ui/react"
+import { Stack, Text } from "@chakra-ui/react"
+import { Card } from "@src/component/atom/card/Card"
+import { UsericonWithName } from "@src/component/molecules/user/UsericonWithName"
 
 export const UserCard = (props: any) => {
   const { user } = props
 
   return (
-    <Box
-      maxW={{ base: "90vw", md: "350px" }}
+    <Card
+      maxW={{ base: "300vw", md: "350px" }}
       h="50%"
       borderWidth="1px"
       borderRadius="lg"
@@ -17,7 +19,7 @@ export const UserCard = (props: any) => {
       bg="white"
       boxShadow="md"
     >
-      <Avatar size="xl" name={user.name} src={user.avatarUrl} />
+      <UsericonWithName image={`user.image`}/>
       <Stack
         spacing={4}
         mt={4}
@@ -33,7 +35,7 @@ export const UserCard = (props: any) => {
         <Text fontSize="sm" color="gray.500">メールアドレス: {user.email}</Text>
         <Text fontSize="sm" color="gray.500">担当エリア: {user.area}</Text>
       </Stack>
-    </Box>
+    </Card>
   )
 }
 
