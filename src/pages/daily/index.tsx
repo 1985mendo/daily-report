@@ -116,7 +116,7 @@ const Page = () => {
       {isAlertShown && (
         <Alert status="warning" mt={0}>
           <AlertIcon />
-          Alert!!!2分間も動いていません。事故の恐れあり。上長は速やかに連絡確認してください。
+          WARNING!!!2分間も動いていません。事故の恐れあり。上長は速やかに連絡確認してください。
         </Alert>
       )}
     </Box>
