@@ -114,7 +114,7 @@ const Page = () => {
         現在位置を記録
       </Button>
       {isAlertShown && (
-        <Alert status="warning" mt={4}>
+        <Alert status="warning" mt={0}>
           <AlertIcon />
           Alert!!!2分間も動いていません。事故の恐れあり。付近にいる人は連絡確認してください。
         </Alert>
