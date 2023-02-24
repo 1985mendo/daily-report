@@ -25,52 +25,76 @@ const buttonStyle = {
 const Page = () => {
   const [position, setPosition] = useState<Position>({ lat: null, lng: null })
   const [pathCoordinates, setPathCoordinates] = useState<Position[]>([])
-  const [isAlertShown, setIsAlertShown] = useState<Boolean>(false)
-    console.log(isAlertShown)
-  
-    useEffect(() => {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            setPosition({ lat: position.coords.latitude, lng: position.coords.longitude });
-          },
-          () => {
-            alert("位置情報の取得に失敗しました。")
-          }
-        )
-      } else {
-        alert("お使いのブラウザはGeolocationに対応していません。")
-      }
-    }, [])
-    
-    useEffect(() => {
-    let timeoutId: NodeJS.Timeout
-    if (pathCoordinates.length > 1) {
-      const latLng1 = pathCoordinates[pathCoordinates.length - 1]
-      const latLng2 = pathCoordinates[pathCoordinates.length - 2]
-      if (latLng1 && latLng2) {
-        const { lat: lat1, lng: lng1 } = latLng1
-        const { lat: lat2, lng: lng2 } = latLng2
-        
-        if (lat1 === lat2 && lng1 === lng2) {
-          timeoutId = setTimeout(() => {
-            setIsAlertShown(true);
-          }, 120000); // TODO:2分間同じ場所にいたら警告を表示　分数を変える
-        }
-      }
-    }
-    
-    return () => {
-      clearTimeout(timeoutId)
-    }
-  }, [pathCoordinates])
-  
-  const handleClick = () => {
+  const [isAlertShown, setIsAlertShown] = useState<boolean>(false)
+  const [lastRecordedPosition, setLastRecordedPosition] = useState<Position>({ lat: null, lng: null })
+  const [timeWithoutMovement, setTimeWithoutMovement] = useState<number>(0);
+
+  useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           setPosition({ lat: position.coords.latitude, lng: position.coords.longitude });
-          setPathCoordinates((prev) => [...prev, { lat: position.coords.latitude, lng: position.coords.longitude }])
+          setLastRecordedPosition({ lat: position.coords.latitude, lng: position.coords.longitude });
+        },
+        () => {
+          alert("位置情報の取得に失敗しました。")
+        }
+      )
+    } else {
+      alert("お使いのブラウザはGeolocationに対応していません。")
+    }
+  }, [])
+
+  useEffect(() => {
+    let timeoutId: NodeJS.Timeout | undefined;
+    if (pathCoordinates.length > 1) {
+      const previousPosition: Position | undefined = pathCoordinates[pathCoordinates.length - 2];
+      const currentPosition: Position | undefined = pathCoordinates[pathCoordinates.length - 1];
+      if (previousPosition && currentPosition && (previousPosition.lat !== currentPosition.lat || previousPosition.lng !== currentPosition.lng)) {
+        setIsAlertShown(false);
+        setTimeWithoutMovement(0);
+        timeoutId = setTimeout(() => {
+          setIsAlertShown(true);
+        }, 120000); //2分間同一位置でアラート
+      }
+    }
+    return () => {
+      if (timeoutId !== undefined) {
+        clearTimeout(timeoutId);
+      }
+    };
+  }, [pathCoordinates]);
+
+  useEffect(() => {
+    const timeoutId: NodeJS.Timeout = setInterval(() => {
+      if (position.lat && position.lng && lastRecordedPosition.lat && lastRecordedPosition.lng && position.lat === lastRecordedPosition.lat && position.lng === lastRecordedPosition.lng) {
+        setTimeWithoutMovement(prev => prev + 1);
+      } else {
+        setLastRecordedPosition({ lat: position.lat, lng: position.lng });
+        setTimeWithoutMovement(0);
+      }
+    }, 1000);
+    return () => clearInterval(timeoutId);
+  }, [position, lastRecordedPosition]);
+
+  const handleClick = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const currentPosition = { lat: position.coords.latitude, lng: position.coords.longitude };
+          setPosition(currentPosition);
+          setPathCoordinates((prev) => {
+            const lastCoordinate = prev[prev.length - 1];
+            if (
+              lastCoordinate &&
+              lastCoordinate.lat === currentPosition.lat &&
+              lastCoordinate.lng === currentPosition.lng
+            ) {
+              return prev;
+            } else {
+              return [...prev, currentPosition];
+            }
+          });
           setIsAlertShown(false)
         },
         () => {
@@ -81,6 +105,7 @@ const Page = () => {
       alert("お使いのブラウザはGeolocationに対応していません。")
     }
   }
+  
   const googleMapApiKey: string | undefined = process?.env?.['NEXT_PUBLIC_GOOGLE_MAP_API_KEY']
   
   if (!googleMapApiKey) return null
@@ -121,6 +146,7 @@ const Page = () => {
       )}
     </Box>
   )
+  
 }
 
 export default Page
