@@ -1,13 +1,21 @@
-import UserCard from "@src/organisms/user/UserCard";
-import { Flex } from "@chakra-ui/react";
+import UserCard from "@src/organisms/user/UserCard"
+import { Flex } from "@chakra-ui/react"
 
-const user = {
+type User = {
+  name: string;
+  image: string;
+  employeeId: string;
+  email: string;
+  area: string;
+}
+
+const user: User = {
   name: "山田太郎",
   image: "",
   employeeId: "123456",
   email: "123456@gmail.com",
   area: "北部九州",
-};
+}
 
 const Page = () => {
   return (
@@ -20,7 +28,7 @@ const Page = () => {
     >
       <UserCard user={user} />
     </Flex>
-  );
-};
+  )
+}
 
-export default Page;
+export default Page
