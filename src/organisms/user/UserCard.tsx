@@ -22,13 +22,13 @@ export const UserCard = ({ user }: Props) => {
         {user.name}
       </Text>
       <Text fontSize="md" mt={1}>
-        {user.employeeId}
+        社員番号: {user.employeeId}
       </Text>
       <Text fontSize="md" mt={1}>
-        {user.email}
+        メールアドレス: {user.email}
       </Text>
       <Text fontSize="md" mt={1}>
-        {user.area}
+        担当エリア: {user.area}
       </Text>
     </Flex>
   );
