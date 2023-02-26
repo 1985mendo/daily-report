@@ -6,6 +6,7 @@ const Page: NextPage = () => {
   return (
     <AuthGuard>
       <Heading>Daily-Report-App</Heading>
+      <Text>Next.js/TypeScript/React/FIREBASE/ChakraUI</Text>
       <Text>コンセプト: 日報作成支援ツール</Text>
       <Text>ターゲット: 外回り営業マン、移動が多い職種向け</Text>
       <Text>利用の流れ: サインイン→出発地点にて地図ボタン押下→日報作成時、訪問場所、経路を記録できる→一定時間同一場所に留まると警告が表示される（2分間）
