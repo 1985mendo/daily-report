@@ -1,4 +1,4 @@
-import { Box, chakra, Container, Flex, Link } from '@chakra-ui/react'
+import { Box, chakra, Container, Flex, Link, Text } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 
 const Footer = () => {
@@ -36,7 +36,7 @@ const Footer = () => {
                   サインイン
                 </Link>
               </Box>
-              <Box ml={2}>
+              <Box ml={5}>
                 <Link lineHeight={1} onClick={onClickSignup}>
                   新規登録
                 </Link>
