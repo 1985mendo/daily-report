@@ -1,5 +1,5 @@
-import UserCard from "@src/organisms/user/UserCard"
 import { Flex } from "@chakra-ui/react"
+import { UserCard } from "@src/organisms/user/UserCard"
 
 type User = {
   name: string;
@@ -25,10 +25,12 @@ const Page = () => {
       h="100%"
       backgroundColor="#e4f9f5"
       flexDirection="column"
+      padding={10}
+      margin="auto"
     >
       <UserCard user={user} />
     </Flex>
   )
 }
 
-export default Page
+export default Page;

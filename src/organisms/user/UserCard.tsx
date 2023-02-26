@@ -1,6 +1,6 @@
-import { Flex, Stack, Text } from "@chakra-ui/react";
-import { Card } from "@src/component/atom/card/Card";
-import { UsericonWithName } from "@src/component/molecules/user/UsericonWithName";
+import { Stack, Text } from "@chakra-ui/react"
+import { Card } from "@src/component/atom/card/Card"
+import { UsericonWithName } from "@src/component/molecules/user/UsericonWithName"
 
 type Props = {
   user: {
@@ -26,7 +26,7 @@ export const UserCard = ({ user }: Props) => {
       alignItems="center"
       bg="white"
       boxShadow="md"
-      p={0}
+      my={0}
     >
       <UsericonWithName image={user.image} name={user.name} />
       <Stack
@@ -54,28 +54,3 @@ export const UserCard = ({ user }: Props) => {
     </Card>
   )
 }
-
-const user = {
-  name: "山田太郎",
-  image: "",
-  employeeId: "123456",
-  email: "123456@gmail.com",
-  area: "北部九州",
-}
-
-const Page = () => {
-  return (
-    <Flex
-      justifyContent="center"
-      alignItems="center"
-      h="100%"
-      backgroundColor="#e4f9f5"
-      flexDirection="column"
-      padding={10}
-    >
-      <UserCard user={user} />
-    </Flex>
-  )
-}
-
-export default Page
