@@ -1,6 +1,5 @@
-import { Box, chakra, Container, Flex, Link, Text } from '@chakra-ui/react'
-import { useRouter } from 'next/router'
-
+import { Box, chakra, Container, Flex, Link } from '@chakra-ui/react'
+import { useRouter } from 'next/router' 
 const Footer = () => {
   const router = useRouter()
   const onClickSignin = () => {
