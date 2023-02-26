@@ -32,11 +32,10 @@ export const UserCard = ({ user }: Props) => {
       <Stack
         spacing={4}
         px={4}
-        py={0}
+        paddingY={2}
         bg="gray.50"
         w="100%"
         textAlign="center"
-        sx={{ paddingY: 0 }}
       >
         <Text fontWeight="bold" fontSize="lg">
           {user.name}
