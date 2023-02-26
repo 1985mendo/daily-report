@@ -1,6 +1,5 @@
 import { Button, Flex } from "@chakra-ui/react";
 import EditUser from "@src/organisms/user/EditUser";
-import { UserCard } from "@src/organisms/user/UserCard";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useEffect, useState } from "react";
 import {
@@ -10,6 +9,7 @@ import {
   DocumentReference,
   getDoc,
 } from "firebase/firestore";
+import UserCard from "@src/organisms/user/UserCard";
 
 export type User = {
   name: string;

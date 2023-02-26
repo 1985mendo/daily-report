@@ -48,7 +48,7 @@ const Header = () => {
           {user ? (
             <Menu>
               <MenuButton>
-                <Avatar flexShrink={0} width={10} height={10} />
+              <Avatar flexShrink={0} width={10} height={10} src={user?.image} />
               </MenuButton>
               <MenuList py={0}>
                 <MenuItem onClick={handleProf}>プロフィール</MenuItem>

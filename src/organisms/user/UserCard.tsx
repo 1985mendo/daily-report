@@ -5,7 +5,7 @@ type Props = {
   user: User;
 };
 
-export const UserCard = ({ user }: Props) => {
+const UserCard = ({ user }: Props) => {
   return (
     <Flex
       w="md"
@@ -31,5 +31,6 @@ export const UserCard = ({ user }: Props) => {
         担当エリア: {user.area}
       </Text>
     </Flex>
-  );
-};
+  )
+}
+export default UserCard

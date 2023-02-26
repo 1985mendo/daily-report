@@ -6,7 +6,7 @@ const Page: NextPage = () => {
   return (
     <AuthGuard>
       <Heading>Daily-Report-App</Heading>
-   </AuthGuard>
+    </AuthGuard>
   )
 }
 
