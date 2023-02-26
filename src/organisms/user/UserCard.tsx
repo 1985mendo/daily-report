@@ -1,55 +1,35 @@
-import { Stack, Text } from "@chakra-ui/react"
-import { Card } from "@src/component/atom/card/Card"
-import { UsericonWithName } from "@src/component/molecules/user/UsericonWithName"
+import { Flex, Text, Image } from "@chakra-ui/react";
+import type { User } from "@src/pages/profile";
 
 type Props = {
-  user: {
-    name: string;
-    image: string;
-    employeeId: string;
-    email: string;
-    area: string;
-  }
-}
+  user: User;
+};
 
 export const UserCard = ({ user }: Props) => {
   return (
-    <Card
-      maxW={{ base: "100%", md: "350px" }}
-      h="auto"
-      borderWidth="1px"
-      borderRadius="lg"
-      overflow="hidden"
-      display="flex"
+    <Flex
+      w="md"
+      padding={4}
+      boxShadow="md"
+      borderRadius={4}
       flexDirection="column"
       justifyContent="center"
       alignItems="center"
-      bg="white"
-      boxShadow="md"
-      my={0}
+      backgroundColor="white"
     >
-      <UsericonWithName image={user.image} name={user.name} />
-      <Stack
-        spacing={4}
-        px={4}
-        paddingY={2}
-        bg="gray.50"
-        w="100%"
-        textAlign="center"
-      >
-        <Text fontWeight="bold" fontSize="lg">
-          {user.name}
-        </Text>
-        <Text fontSize="sm" color="gray.500">
-          社員番号: {user.employeeId}
-        </Text>
-        <Text fontSize="sm" color="gray.500">
-          メールアドレス: {user.email}
-        </Text>
-        <Text fontSize="sm" color="gray.500">
-          担当エリア: {user.area}
-        </Text>
-      </Stack>
-    </Card>
-  )
-}
+      {user.image && <Image src={user.image} borderRadius="full" boxSize="100px" objectFit="cover" />}
+      <Text fontWeight="bold" fontSize="2xl" mt={2}>
+        {user.name}
+      </Text>
+      <Text fontSize="md" mt={1}>
+        {user.employeeId}
+      </Text>
+      <Text fontSize="md" mt={1}>
+        {user.email}
+      </Text>
+      <Text fontSize="md" mt={1}>
+        {user.area}
+      </Text>
+    </Flex>
+  );
+};
