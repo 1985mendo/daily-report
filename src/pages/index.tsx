@@ -1,18 +1,27 @@
 import type { NextPage } from 'next'
-import { Heading, Text } from '@chakra-ui/react'
+import { Center, Heading, Text } from '@chakra-ui/react'
 import { AuthGuard } from '@src/feature/auth/component/AuthGuard/AuthGuard'
 
 const Page: NextPage = () => {
   return (
     <AuthGuard>
-      <Heading>Daily-Report-App</Heading>
-      <Text>Next.js/TypeScript/React/FIREBASE/ChakraUI</Text>
-      <Text>コンセプト: 日報作成支援ツール</Text>
-      <Text>ターゲット: 外回り営業マン、移動が多い職種向け</Text>
-      <Text>利用の流れ: サインイン→出発地点にて地図ボタン押下→日報作成時、訪問場所、経路を記録できる→一定時間同一場所に留まると警告が表示される（2分間）
-      </Text>
-      <Text>制作期間: １ヶ月</Text>
-      <Text>今後の課題: 地点のデータ保持機能、地図へのコメント記入機能をつけ本体のみで日報作成ができるように</Text>
+      <Center h="100vh">
+        <div>
+          <Heading as="h1" size="2xl" fontWeight="bold" mb={8}>Daily Report App</Heading>
+          <Text fontSize="xl">Next.js/TypeScript/React/FIREBASE/ChakraUI</Text>
+          <hr />
+          <Text fontSize="2xl" fontWeight="bold" mb={4}>Concept</Text>
+          <Text fontSize="xl" mb={4}>日報作成を支援するアプリケーション</Text>
+          <Text fontSize="xl" fontWeight="bold" mb={4}>Target User</Text>
+          <Text fontSize="xl" mb={8}>外回り営業マン、移動が多い職種の方々</Text>
+          <Text fontSize="xl" fontWeight="bold" mb={4}>Usage Flow</Text>
+          <Text fontSize="xl" mb={4}>1.サインイン → 2.出発地点にて地図ボタン押下 → 3.日報作成時、訪問場所、経路を記録 → 一定時間同一場所に留まると警告が表示される（2分間）</Text>
+          <Text fontSize="xl" fontWeight="bold" mb={4}>Production Period</Text>
+          <Text fontSize="xl" mb={4}>1 month</Text>
+          <Text fontSize="xl" fontWeight="bold" mb={4}>Future Tasks</Text>
+          <Text fontSize="xl" mb={4}>地点のデータ保持機能、地図へのコメント記入機能を追加し、本体のみで日報作成ができるようにする。</Text>
+        </div>
+      </Center>
     </AuthGuard>
   )
 }
