@@ -1,5 +1,5 @@
 import { useAuthContext } from '@src/feature/auth/provider/AuthProvider'
-import { Button, Container, Heading, chakra, useToast, Flex, Spacer, Menu, MenuButton, Avatar, MenuList, MenuItem } from '@chakra-ui/react'
+import { Button, Container, Heading, chakra, useToast, Flex, Spacer, Menu, MenuButton, MenuList, MenuItem, Avatar } from '@chakra-ui/react'
 import { FirebaseError } from '@firebase/util'
 import { getAuth, signOut } from 'firebase/auth'
 import { useState } from 'react'
@@ -42,13 +42,13 @@ const Header = () => {
   return (
     <chakra.header py={4} bgColor={'blue.600'}>
       <Container maxW={'container.lg'}>
-      <Flex>
+        <Flex>
           <Heading color={'white'}>Daily-Report-App</Heading>
           <Spacer aria-hidden />
           {user ? (
             <Menu>
               <MenuButton>
-              <Avatar flexShrink={0} width={10} height={10} /*src={user?.image}**/ />
+              <Avatar size={'sm'} name={user?.displayName || ''} src={user?.photoURL || '/default_avatar.jpg'} />
               </MenuButton>
               <MenuList py={0}>
                 <MenuItem onClick={handleProf}>プロフィール</MenuItem>
@@ -58,15 +58,15 @@ const Header = () => {
                 <MenuItem onClick={handleSignOut}>サインアウト</MenuItem>
               </MenuList>
             </Menu>
-           ) : (
+            ) : (
               <Button as={'a'} colorScheme={'teal'}>
                 サインイン
               </Button>
-       )}
-
+           )}
         </Flex>
       </Container>
     </chakra.header>
   )
 }
+
 export default Header

@@ -1,7 +1,7 @@
-import { Button, Flex } from "@chakra-ui/react";
-import EditUser from "@src/organisms/user/EditUser";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { useEffect, useState } from "react";
+import { Button, Flex } from "@chakra-ui/react"
+import EditUser from "@src/organisms/user/EditUser"
+import { getAuth, onAuthStateChanged } from "firebase/auth"
+import { useEffect, useState } from "react"
 import {
   doc,
   getFirestore,
@@ -9,18 +9,19 @@ import {
   DocumentReference,
   getDoc,
 } from "firebase/firestore";
-import UserCard from "@src/organisms/user/UserCard";
+
+import UserCard from "@src/organisms/user/UserCard"
 
 export type User = {
   name: string;
-  image?: string | undefined;
+  image: string;
   employeeId: string;
   email: string;
   area: string;
-};
+}
 
-const auth = getAuth();
-const db = getFirestore();
+const auth = getAuth()
+const db = getFirestore()
 
 const saveUserToFirestore = async (updatedUser: User) => {
   const { uid } = auth.currentUser!;
@@ -35,21 +36,22 @@ const saveUserToFirestore = async (updatedUser: User) => {
     newUser.image = "";
   }
   await setDoc(userRef, newUser);
-};
+}
 
 const Page = () => {
   const [user, setUser] = useState<User>({
     name: "編集画面で変更してください",
-    image: undefined,
+    image: "",
     employeeId: "編集画面で変更してください",
-    email: "編集画面で変更してください",
+    email: "変更できません",
     area: "編集画面で変更してください",
-  });
-  const [showEditUser, setShowEditUser] = useState(false);
+  })
+  const [showEditUser, setShowEditUser] = useState(false)
 
   const handleEdit = () => {
-    setShowEditUser(true);
-  };
+    setShowEditUser(true)
+
+  }
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -67,51 +69,62 @@ const Page = () => {
         } else {
           setUser({
             name: "編集画面で変更してください",
-            image: undefined,
+            image: "",
             employeeId: "編集画面で変更してください",
             email: "編集画面で変更してください",
             area: "編集画面で変更してください",
-          });
+          })
         }
       }
-    });
+    })
     return () => {
       unsubscribe();
-    };
-  }, []);
+    }
+  }, [])
 
   const handleSave = async (
     updatedUser: ((prevUser: User) => User) | User
   ) => {
     const updatedUserData =
       typeof updatedUser === "function" ? updatedUser(user) : updatedUser;
-    setUser(updatedUserData);
-    setShowEditUser(false);
-    await saveUserToFirestore(updatedUserData);
-  };
+      console.log(updatedUserData)
+    setUser(updatedUserData)
+    setShowEditUser(false)
+    await saveUserToFirestore(updatedUserData)
+  }
 
   const handleCancel = () => {
     setShowEditUser(false);
-  };
+  }
+
+  const userEmail = auth.currentUser?.email
+  const userWithAutoEmail: User = {
+    ...user,
+    email: userEmail ? userEmail : "",
+  }
 
   return (
     <Flex
-      justifyContent="center"
-      alignItems="center"
-      h="100%"
-      backgroundColor="#e4f9f5"
-      flexDirection="column"
-      padding={10}
-      margin="auto"
+    justifyContent="center"
+    alignItems="center"
+    h="100%"
+    backgroundColor="#e4f9f5"
+    flexDirection="column"
+    padding={10}
+    margin="auto"
     >
       <Button onClick={handleEdit}>編集する</Button>
-      {showEditUser ? (
-        <EditUser user={user} onSave={handleSave} onCancel={handleCancel} />
-      ) : (
-        <UserCard user={user} />
-      )}
-    </Flex>
-  );
-};
+        {showEditUser ? (
+          <EditUser
+            user={user}
+            onSave={handleSave}
+            onCancel={handleCancel}
+          />
+        ) : (
+          <UserCard user={userWithAutoEmail} onEdit={handleEdit} />
+        )}
+  </Flex>
+  )
+}
 
 export default Page

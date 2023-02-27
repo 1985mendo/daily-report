@@ -16,7 +16,7 @@ const EditUser = ({ user, onSave, onCancel }: EditUserProps) => {
   const [employeeId, setEmployeeId] = useState<string>(user.employeeId.toString())
 
   const [area, setArea] = useState(user.area)
-  const [image, setImage] = useState<File | undefined>(undefined)
+  const [image] = useState<File | undefined>(undefined)
   const router = useRouter()
 
   const handleSubmit = async (event: React.FormEvent) => {
@@ -30,12 +30,6 @@ const EditUser = ({ user, onSave, onCancel }: EditUserProps) => {
     router.push("/profile")
   }
 
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0]
-    if (file) {
-      setImage(file)
-    }
-  }
   const handleEmployeeIdChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value
     setEmployeeId(value)
@@ -61,10 +55,6 @@ const EditUser = ({ user, onSave, onCancel }: EditUserProps) => {
         <FormControl mt={4}>
           <FormLabel>地域</FormLabel>
           <Textarea backgroundColor="white" value={area} onChange={(event) => setArea(event.target.value)} />
-        </FormControl>
-        <FormControl mt={4}>
-          <FormLabel>プロフィール画像</FormLabel>
-          <Input type="file" backgroundColor="white" onChange={handleImageChange} />
         </FormControl>
         <Button type="submit" mt={8} mx="auto" display="block" colorScheme="teal" size="lg" width="100%">
           保存

@@ -1,11 +1,12 @@
-import { Flex, Text, Image } from "@chakra-ui/react";
-import type { User } from "@src/pages/profile";
+import { Flex, Text, Avatar } from "@chakra-ui/react"
+import type { User } from "@src/pages/profile"
 
 type Props = {
-  user: User;
-};
+  user: User & { name: string, image: string },
+  onEdit: () => void
+}
 
-const UserCard = ({ user }: Props) => {
+const UserCard: React.FC<Props> = ({ user, onEdit }) => {
   return (
     <Flex
       w="md"
@@ -16,8 +17,9 @@ const UserCard = ({ user }: Props) => {
       justifyContent="center"
       alignItems="center"
       backgroundColor="white"
+      onClick={onEdit}
     >
-      {user.image && <Image src={user.image} borderRadius="full" boxSize="100px" objectFit="cover" />}
+      <Avatar size={'sm'} name={user.name} />
       <Text fontWeight="bold" fontSize="2xl" mt={2}>
         {user.name}
       </Text>
@@ -33,4 +35,5 @@ const UserCard = ({ user }: Props) => {
     </Flex>
   )
 }
+
 export default UserCard
