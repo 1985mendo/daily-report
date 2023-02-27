@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
-import { GoogleMap, LoadScript, Marker, Polyline } from "@react-google-maps/api";
-import { Button, Alert, AlertIcon, Heading, Box } from "@chakra-ui/react";
+import { useState, useEffect } from "react"
+import { GoogleMap, LoadScript, Marker, Polyline } from "@react-google-maps/api"
+import { Button, Alert, AlertIcon, Heading, Box } from "@chakra-ui/react"
 
 type Position = {
   lat: number | null;
@@ -48,22 +48,22 @@ const Page = () => {
   useEffect(() => {
     let timeoutId: NodeJS.Timeout | undefined;
     if (pathCoordinates.length > 1) {
-      const previousPosition: Position | undefined = pathCoordinates[pathCoordinates.length - 2];
-      const currentPosition: Position | undefined = pathCoordinates[pathCoordinates.length - 1];
+      const previousPosition: Position | undefined = pathCoordinates[pathCoordinates.length - 2]
+      const currentPosition: Position | undefined = pathCoordinates[pathCoordinates.length - 1]
       if (previousPosition && currentPosition && (previousPosition.lat !== currentPosition.lat || previousPosition.lng !== currentPosition.lng)) {
-        setIsAlertShown(false);
-        setTimeWithoutMovement(0);
+        setIsAlertShown(false)
+        setTimeWithoutMovement(0)
         timeoutId = setTimeout(() => {
-          setIsAlertShown(true);
-        }, 120000); //2分間同一位置でアラート
+          setIsAlertShown(true)
+        }, 120000) //2分間同一位置でアラート
       }
     }
     return () => {
       if (timeoutId !== undefined) {
-        clearTimeout(timeoutId);
+        clearTimeout(timeoutId)
       }
-    };
-  }, [pathCoordinates]);
+    }
+  }, [pathCoordinates])
 
   useEffect(() => {
     const timeoutId: NodeJS.Timeout = setInterval(() => {
