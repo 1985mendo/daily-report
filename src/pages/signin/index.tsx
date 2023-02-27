@@ -67,6 +67,7 @@ export const Page = () => {
               <FormLabel>メールアドレス</FormLabel>
               <Input
                 type={'email'}
+                backgroundColor={`white`}
                 name={'email'}
                 placeholder={`メールアドレス`}
                 value={email}
@@ -79,6 +80,7 @@ export const Page = () => {
               <FormLabel>パスワード</FormLabel>
               <Input
                 type={'password'}
+                backgroundColor={`white`}
                 name={'password'}
                 placeholder={`6文字以上のパスワードを設定してください`}
                 value={password}
