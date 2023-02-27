@@ -29,6 +29,7 @@ const Page = () => {
   const [lastRecordedPosition, setLastRecordedPosition] = useState<Position>({ lat: null, lng: null })
   const [timeWithoutMovement, setTimeWithoutMovement] = useState<number>(0) 
   console.log(timeWithoutMovement)
+  
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
