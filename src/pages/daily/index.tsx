@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { GoogleMap, LoadScript, Marker, Polyline } from "@react-google-maps/api"
 import { Button, Alert, AlertIcon, Heading, Box } from "@chakra-ui/react"
 
@@ -46,28 +46,29 @@ const Page = () => {
     }
   }, [])
 
+  const timeoutRef = useRef<NodeJS.Timeout | undefined>(undefined)
+
   useEffect(() => {
-    let timeoutId: NodeJS.Timeout | undefined = undefined;
     if (pathCoordinates.length > 1) {
-      const previousPosition: Position | undefined = pathCoordinates[pathCoordinates.length - 2];
-      const currentPosition: Position | undefined = pathCoordinates[pathCoordinates.length - 1];
+      const previousPosition = pathCoordinates[pathCoordinates.length - 2]
+      const currentPosition = pathCoordinates[pathCoordinates.length - 1]
       if (previousPosition && currentPosition && (previousPosition.lat !== currentPosition.lat || previousPosition.lng !== currentPosition.lng)) {
-        setIsAlertShown(false);
-        setTimeWithoutMovement(0);
-        if (timeoutId === undefined) {
-          timeoutId = setTimeout(() => {
-            setIsAlertShown(true);
-          }, 120000); //2分間同一位置でアラート
+        setIsAlertShown(false)
+        setTimeWithoutMovement(0)
+        if (timeoutRef.current) {
+          clearTimeout(timeoutRef.current)
         }
+        timeoutRef.current = setTimeout(() => {
+          setIsAlertShown(true)
+        }, 120000) //2分間同一位置でアラート
       }
     }
     return () => {
-      if (timeoutId !== undefined) {
-        clearTimeout(timeoutId);
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current)
       }
-    };
-  }, [pathCoordinates]);
-  
+    }
+  }, [pathCoordinates])
 
   useEffect(() => {
     const timeoutId: NodeJS.Timeout = setInterval(() => {
@@ -77,7 +78,7 @@ const Page = () => {
         setLastRecordedPosition({ lat: position.lat, lng: position.lng });
         setTimeWithoutMovement(0);
       }
-    }, 1000);
+    }, 10000);
     return () => clearInterval(timeoutId);
   }, [position, lastRecordedPosition]);
 
