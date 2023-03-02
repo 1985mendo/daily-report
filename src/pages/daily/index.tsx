@@ -47,24 +47,27 @@ const Page = () => {
   }, [])
 
   useEffect(() => {
-    let timeoutId: NodeJS.Timeout | undefined;
+    let timeoutId: NodeJS.Timeout | undefined = undefined;
     if (pathCoordinates.length > 1) {
-      const previousPosition: Position | undefined = pathCoordinates[pathCoordinates.length - 2]
-      const currentPosition: Position | undefined = pathCoordinates[pathCoordinates.length - 1]
+      const previousPosition: Position | undefined = pathCoordinates[pathCoordinates.length - 2];
+      const currentPosition: Position | undefined = pathCoordinates[pathCoordinates.length - 1];
       if (previousPosition && currentPosition && (previousPosition.lat !== currentPosition.lat || previousPosition.lng !== currentPosition.lng)) {
-        setIsAlertShown(false)
-        setTimeWithoutMovement(0)
-        timeoutId = setTimeout(() => {
-          setIsAlertShown(true)
-        }, 120000) //2分間同一位置でアラート
+        setIsAlertShown(false);
+        setTimeWithoutMovement(0);
+        if (timeoutId === undefined) {
+          timeoutId = setTimeout(() => {
+            setIsAlertShown(true);
+          }, 120000); //2分間同一位置でアラート
+        }
       }
     }
     return () => {
       if (timeoutId !== undefined) {
-        clearTimeout(timeoutId)
+        clearTimeout(timeoutId);
       }
-    }
-  }, [pathCoordinates])
+    };
+  }, [pathCoordinates]);
+  
 
   useEffect(() => {
     const timeoutId: NodeJS.Timeout = setInterval(() => {
