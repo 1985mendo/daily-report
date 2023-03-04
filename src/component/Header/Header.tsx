@@ -1,5 +1,17 @@
-import { useAuthContext } from '@src/feature/auth/provider/AuthProvider'
-import { Button, Container, Heading, chakra, useToast, Flex, Spacer, Menu, MenuButton, MenuList, MenuItem, Avatar } from '@chakra-ui/react'
+import { useAuthContext } from '@src/feature/auth/provider/AuthProvider';
+import {
+  Button,
+  Container,
+  Heading,
+  chakra,
+  useToast,
+  Flex,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  Avatar,
+} from '@chakra-ui/react'
 import { FirebaseError } from '@firebase/util'
 import { getAuth, signOut } from 'firebase/auth'
 import { useState } from 'react'
@@ -13,11 +25,11 @@ const Header = () => {
 
   const handleProf = () => {
     push('/profile')
-  }
+  };
   const handleDaily = () => {
     push('/daily')
-  }
-  
+  };
+
   const handleSignOut = async () => {
     console.log(isLoading)
     setIsLoading(true)
@@ -42,13 +54,16 @@ const Header = () => {
   return (
     <chakra.header py={4} bgColor={'blue.600'}>
       <Container maxW={'container.lg'}>
-        <Flex>
+        <Flex alignItems="center" justifyContent="space-between">
           <Heading color={'white'}>Daily-Report-App</Heading>
-          <Spacer aria-hidden />
           {user ? (
             <Menu>
               <MenuButton>
-              <Avatar size={'sm'} name={user?.displayName || ''} src={user?.photoURL || '/default_avatar.jpg'} />
+                <Avatar
+                  size={'sm'}
+                  name={user?.displayName || ''}
+                  src={user?.photoURL || '/default_avatar.jpg'}
+                />
               </MenuButton>
               <MenuList py={0}>
                 <MenuItem onClick={handleProf}>プロフィール</MenuItem>
@@ -58,11 +73,11 @@ const Header = () => {
                 <MenuItem onClick={handleSignOut}>サインアウト</MenuItem>
               </MenuList>
             </Menu>
-            ) : (
-              <Button as={'a'} colorScheme={'teal'}>
-                サインイン
-              </Button>
-           )}
+          ) : (
+            <Button as={'a'} colorScheme={'teal'} size="sm" w="80px">
+              サインイン
+            </Button>
+          )}
         </Flex>
       </Container>
     </chakra.header>
