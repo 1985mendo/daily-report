@@ -34,15 +34,15 @@ const Page = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          setPosition({ lat: position.coords.latitude, lng: position.coords.longitude });
-          setLastRecordedPosition({ lat: position.coords.latitude, lng: position.coords.longitude });
+          setPosition({ lat: position.coords.latitude, lng: position.coords.longitude })
+          setLastRecordedPosition({ lat: position.coords.latitude, lng: position.coords.longitude })
         },
         () => {
-          alert("位置情報の取得に失敗しました。")
+          window.alert("位置情報の取得に失敗しました。")
         }
       )
     } else {
-      alert("お使いのブラウザはGeolocationに対応していません。")
+      window.alert("お使いのブラウザはGeolocationに対応していません。")
     }
   }, [])
 
@@ -72,34 +72,50 @@ const Page = () => {
 
   useEffect(() => {
     const timeoutId: NodeJS.Timeout = setInterval(() => {
-      if (position.lat && position.lng && lastRecordedPosition.lat && lastRecordedPosition.lng && position.lat === lastRecordedPosition.lat && position.lng === lastRecordedPosition.lng) {
-        setTimeWithoutMovement(prev => prev + 1);
+      if (
+        position.lat &&
+        position.lng &&
+        lastRecordedPosition.lat &&
+        lastRecordedPosition.lng &&
+        position.lat === lastRecordedPosition.lat &&
+        position.lng === lastRecordedPosition.lng
+      ) {
+        setTimeWithoutMovement((prev) => prev + 1); // timeWithoutMovementを1増やす
       } else {
-        setLastRecordedPosition({ lat: position.lat, lng: position.lng });
-        setTimeWithoutMovement(0);
+        setLastRecordedPosition({ lat: position.lat, lng: position.lng })
+        setTimeWithoutMovement(0)
       }
-    }, 10000);
-    return () => clearInterval(timeoutId);
-  }, [position, lastRecordedPosition]);
-
+    }, 10000)
+  
+    if (timeWithoutMovement >= 12) { // timeWithoutMovementが12以上の場合にのみアラートを表示する
+      setIsAlertShown(true)
+    } else {
+      setIsAlertShown(false)
+    }
+  
+    return () => clearInterval(timeoutId)
+  }, [position, lastRecordedPosition, timeWithoutMovement])
+  
   const handleClick = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          const currentPosition = { lat: position.coords.latitude, lng: position.coords.longitude };
-          setPosition(currentPosition);
+          const currentPosition = { lat: position.coords.latitude, lng: position.coords.longitude }
+          setPosition(currentPosition)
           setPathCoordinates((prev) => {
-            const lastCoordinate = prev[prev.length - 1];
+            const lastCoordinate = prev[prev.length - 1]
             if (
               lastCoordinate &&
               lastCoordinate.lat === currentPosition.lat &&
               lastCoordinate.lng === currentPosition.lng
             ) {
-              return prev;
+              return prev
             } else {
-              return [...prev, currentPosition];
+              return [...prev, currentPosition]
             }
-          });
+          })
+          setLastRecordedPosition(currentPosition)
+          setTimeWithoutMovement(0)
           setIsAlertShown(false)
         },
         () => {
@@ -110,6 +126,7 @@ const Page = () => {
       alert("お使いのブラウザはGeolocationに対応していません。")
     }
   }
+  
   
   const googleMapApiKey: string | undefined = process?.env?.['NEXT_PUBLIC_GOOGLE_MAP_API_KEY']
   
